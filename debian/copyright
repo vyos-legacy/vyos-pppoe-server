@@ -1,0 +1,52 @@
+This package was debianized by Stig Thormodsrud <stig@ubnt.com> on
+Wed, 10 Aug 2011 17:37:07 -0700.
+
+Upstream Author: 
+
+    <eng@ubnt.com>
+
+Copyright: 
+
+    Copyright (C) 2011 Ubiquiti, Inc.
+    All Rights Reserved.
+
+License:
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2, or (at your option)
+any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+A copy of the GNU General Public License is available as
+`/usr/share/common-licenses/GPL' in the Debian GNU/Linux distribution
+or on the World Wide Web at `http://www.gnu.org/copyleft/gpl.html'.
+You can also obtain it by writing to the Free Software Foundation,
+Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+MA 02110-1301, USA.
+
+The Debian packaging is (C) 2011, Stig Thormodsrud <stig@ubnt.com> and
+is licensed under the GPL, see above.
+
+
+===
+
+This package also includes Perl Net-Radius-2.103 modules, whose
+copyright and license are as follows:
+
+Original work (c) Christopher Masto. Changes (c) 2002,2003 Luis
+E. Muñoz <luismunoz@cpan.org>.
+
+This software can be used under the same terms as perl itself. It also
+carries the same warranties.
+
+
+===
+
+This package also includes RADIUS disconnect script for PPPoE server
+(pppoe-radius-disconnect), contributed by Andrew Brandt
+<drewjbrandt@gmail.com>.

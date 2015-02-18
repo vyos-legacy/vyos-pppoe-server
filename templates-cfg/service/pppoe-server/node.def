@@ -1,0 +1,5 @@
+help: Point to Point over Ethernet (PPPoE) Server
+
+priority: 900
+
+end: sudo /opt/vyatta/sbin/update-pppoe-server.pl || exit 1

@@ -1,0 +1,5 @@
+multi:
+type: txt
+help: interface(s) to listen on
+allowed: /opt/vyatta/sbin/vyatta-interfaces.pl --show=all
+commit:expression: exec "/opt/vyatta/sbin/vyatta-interfaces.pl --dev=$VAR(@) --warn"

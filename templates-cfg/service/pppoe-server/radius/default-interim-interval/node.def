@@ -1,0 +1,8 @@
+type: u32
+
+help: Default interim accounting interval
+
+syntax:expression: $VAR(@) >= 60 && $VAR(@) <= 10000000;
+                   "Interim interval must be between 60 and 10000000"
+
+val_help: u32:60-10000000; Default interim accounting interval

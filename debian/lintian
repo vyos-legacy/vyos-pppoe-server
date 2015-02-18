@@ -1,0 +1,4 @@
+vyos-pppoe-server: file-in-unusual-dir
+vyos-pppoe-server: dir-or-file-in-opt
+vyos-pppoe-server: file-in-etc-not-marked-as-conffile
+vyos-pppoe-server: binary-without-manpage

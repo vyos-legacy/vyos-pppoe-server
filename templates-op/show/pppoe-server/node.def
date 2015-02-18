@@ -1,0 +1,3 @@
+help: Show active PPPoE server sessions
+allowed: ""
+run: ${vyatta_sbindir}/show-pppoe-server.pl 

@@ -1,0 +1,108 @@
+#!/usr/bin/perl
+
+# GET RADIUS INFORMATION
+open(RADFILE, '/etc/radiusclient-ng/servers-pppoe')
+  or die "$0: Cannot open PPPoE Radius Server Config: $!\n";
+my @radius;
+
+while (<RADFILE>) {
+    if ($_ =~ /^[0-9]/) {
+        @radius = split(' ', $_);
+    }
+}
+close(RADFILE);
+
+# GOT RADIUS INFORMATION
+
+use IO::Socket;
+use Net::Radius::Packet;
+use Net::Radius::Dictionary;
+
+my $radIP  = $radius[0];
+my $secret = $radius[1];
+my $port = $ARGV[0];
+
+my $d = new Net::Radius::Dictionary "/etc/radiusclient-ng/dictionary";
+
+# flush after every write
+$| = 1;
+
+my ($s,           $received_data);
+my ($peeraddress, $peerport);
+my ($res);
+my $run = "/opt/vyatta/bin/vyatta-op-cmd-wrapper";
+
+$s = new IO::Socket::INET(
+    LocalPort => $port,
+    Proto     => 'udp'
+) or die "ERROR in Socket Creation : $!\n.";
+
+print "\n===========USING RADIUS ATTRIBUTES============";
+print "\nRadius Server: $radIP \nRadius Secret: $secret \n";
+
+while ($s->recv($received_data, 1024)) {
+
+    my ($port, $ipaddr) = sockaddr_in($s->peername);
+
+    my $p = new Net::Radius::Packet $d, $received_data;
+    print "\n============START NEW REQUEST============\n";
+    $p->dump;
+
+    #get the peerhost and peerport at which the recent data received.
+    $peeraddress = $s->peerhost();
+    $peerport    = $s->peerport();
+
+    #get Resquet Code to verify Disconnect Request
+    my $c = $p->code;
+
+    my $userid = $p->attr('User-Name');
+
+    if ($c eq 'Disconnect-Request' and $peeraddress eq $radIP) {
+
+        #Verify RADIUS HAS CORRECT SECRET
+        if (auth_acct_verify($received_data, $secret) eq 1) {
+
+            #Disconnect User
+            system("$run clear pppoe-server user $userid");
+
+            #Create Response
+            my $resp = new Net::Radius::Packet $d;
+            $resp->set_code('Disconnect-ACK');
+            $resp->set_identifier($p->identifier);
+            $resp->set_authenticator($p->authenticator);
+            $resp->set_attr('Acct-Terminate-Cause' => '6');
+
+            #Pack up Response
+            my $response = auth_resp($resp->pack, $secret);
+
+            $s->send($response);
+            print "============SENDING RESPONSE============\n";
+            $resp->dump;
+            print "========";
+            $res = "COMPLETE";
+        }
+        else {
+            $res = "FAILED NAS PASSWORD VERIFICATION";
+        }
+
+    }
+    else {
+        $res = "INCORRECT NAS IP OR NOT DISCONNECT REQUEST";
+    }
+
+    # Logging
+    my $timestamp = localtime(time);
+
+    if ($userid eq '') {
+        print
+"\n===========RESULTS============\n***********NO ID FOUND************\n$timestamp : ($peeraddress , $peerport) : $received_data\n============END REQUEST============";
+    }
+    else {
+
+        print
+"\n============RESULTS============\n$timestamp : ($peeraddress , $peerport) $c : $userid : $res\n============END REQUEST============\n\n";
+    }
+
+}
+
+$s->close();

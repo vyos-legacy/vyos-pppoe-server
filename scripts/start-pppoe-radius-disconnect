@@ -1,0 +1,8 @@
+#!/bin/bash
+
+SCRIPT=/usr/sbin/pppoe-radius-disconnect
+LOG=/var/log/pppoe-radius-disconnect.log
+
+nohup $SCRIPT 3779 >>$LOG 2>&1 &
+
+exit 0

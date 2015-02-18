@@ -1,0 +1,6 @@
+type: txt
+
+help: Access concentrator name
+
+syntax:expression: pattern $VAR(@) "^[a-zA-Z0-9]+$" ; "Access concentrator name must be composed of uppper and lower case letters or numbers only"
+

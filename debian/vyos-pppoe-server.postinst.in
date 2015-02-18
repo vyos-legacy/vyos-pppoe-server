@@ -1,0 +1,28 @@
+#!/bin/bash
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+sysconfdir=@sysconfdir@
+bindir=@bindir@
+sbindir=@sbindir@
+
+# remove init of daemons that we start/stop
+for init in pppoe-server; do
+  update-rc.d -f ${init} remove >/dev/null
+done
+
+for cfg in /etc/ppp/secrets/chap-pppoe-server \
+           /etc/radiusclient-ng/radiusclient-pppoe.conf \
+           /etc/radiusclient-ng/servers-pppoe \
+           /etc/ppp/pppoe-server-options; do
+  mkdir -p ${cfg%/*}
+  touch $cfg
+done
+
+chmod 600 /etc/ppp/secrets/chap-pppoe-server
+
+mkdir -p ${sysconfdir}/pppoe-server/sessions
+
+for s in up down; do
+  cp -f ${sysconfdir}/pppoe-server/ppp-ip-$s /etc/ppp/ip-$s.d/pppoe-server-ip-$s
+done

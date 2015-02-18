@@ -1,0 +1,15 @@
+#!/bin/bash
+
+PATH=/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin
+export PATH
+
+SESSION_PATH=/opt/vyatta/etc/pppoe-server/sessions
+IFACE="$1"
+USER="$PEERNAME"
+
+# only track pppoe-server sessions
+if [ "$LINKNAME" != "pppoes" ] ; then
+  exit 0
+fi
+
+rm -f "${SESSION_PATH}/${USER}@${IFACE}"

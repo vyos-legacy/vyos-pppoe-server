@@ -1,0 +1,8 @@
+The Debian Package vyos-pppoe-server
+------------------------------------
+
+This package has the VyOS configuration/operational templates and scripts for PPPoE server.
+
+ -- Stig Thormodsrud <stig@ubnt.com> Wed, 10 Aug 2011 17:37:07 -0700
+ -- Benjamin Beret <kouak@kouak.org> Tue, 17 Feb 2015 13:32:37 +0100
+

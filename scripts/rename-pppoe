@@ -1,0 +1,62 @@
+#!/bin/bash
+#
+# Script to re-name ppp interface being used by pppoe to have
+# a form: pppoe-server<unit>.
+#
+# The name of the current ppp interface is passed in as argument 1.  The full
+# name that we are to change it to is passed in as LINKNAME.  We don't
+# use the rest of the arguments.
+#
+# We do this before device is brought up so that later scripts
+# can see the correct name, and the interface doesn't have to be
+# bounced
+
+# ifname - speed local remote pppoe-server
+OLD_IFNAME=$1
+IFPREFIX=$LINKNAME
+
+# The ppp daemon executes this script for all ppp interfaces, even those
+# unrelated to pppoe-server.  We want to change the names only of
+# interface being used by pppoe-server.
+#
+if [ "$IFPREFIX" != "pppoes" ]; then
+    # its not a pppoe
+    exit 0;
+fi
+
+(
+flock -x 201
+logger -p debug -t "pppoe-server" 'Rename start'
+
+while true; do
+    IFINDICIES=$(cd /sys/class/net/ ; ls | sed -n 's/^pppoes//p' | sort -n)
+
+    if [ -n "$IFINDICIES" ]; then
+        MYINDEX=0
+        for i in $IFINDICIES; do
+            if [ $MYINDEX = $i ]; then
+                MYINDEX=$(($MYINDEX + 1))
+            else
+                break
+            fi
+        done
+    else
+        MYINDEX=0
+    fi
+    NEW_IFNAME=$IFPREFIX$MYINDEX
+
+    # Re-name the interface.  Log all errors to syslog.
+    logger -p debug -t "pppoe-server" "Renaming $OLD_IFNAME to $NEW_IFNAME"
+    if ip link set dev $OLD_IFNAME name $NEW_IFNAME; then
+        break
+    fi
+    logger -p debug -t "pppoe-server" 'Rename failed, retrying'
+done
+
+ofile="/var/run/radattr.$OLD_IFNAME"
+nfile="/var/run/radattr.$NEW_IFNAME"
+rm -f $nfile
+mv $ofile $nfile >&/dev/null || true
+
+logger -p debug -t "pppoe-server" 'Rename finish'
+) 201>/var/run/.pppoe-server-rename
