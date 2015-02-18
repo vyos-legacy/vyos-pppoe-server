@@ -249,18 +249,21 @@ sub get_ppp_opts {
     $str .= "name pppoe-server\n";
     $str .= "linkname pppoes\n";
     $str .= "plugin rp-pppoe.so\n";
+# TODO : Implement configuration options to specify which auth we want
 #    $str .= "refuse-pap\n";
     $str .= "auth\n";
 #    $str .= "refuse-chap\n";
 #    $str .= "refuse-mschap\n";
-    $str .= "require-chap\n";
+#    $str .= "require-chap\n";
 #    $str .= "require-mschap-v2\n";
     $str .= ${sstr};
-    $str .= "debug \n";
+#    $str .= "debug \n";
+# TODO : Option not available in current vyatta-ppp (2.4.4)
 #    $str .= "lcp-echo-adaptive\n";
     $str .= "lcp-echo-interval 5\n";
     $str .= "lcp-echo-failure 6\n";
     $str .= "lcp-max-configure 10\n";
+# TODO : Option not available in current vyatta-ppp (2.4.4)
 #    $str .= "nopassive\n";
     $str .= "proxyarp\n";
     $str .= "nobsdcomp\n";
