@@ -1,3 +1,9 @@
+vyos-pppoe-server (0.1.10+vyos2+lithium2) unstable; urgency=low
+
+  * Force release
+
+ -- Daniil Baturin <daniil@baturin.org>  Fri, 03 Apr 2015 20:20:49 +0200
+
 vyos-pppoe-server (0.1.10+vyos2+lithium1) unstable; urgency=low
 
   * Initial import to VyOS
