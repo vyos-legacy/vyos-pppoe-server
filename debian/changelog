@@ -1,3 +1,9 @@
+vyos-pppoe-server (0.1.10+vyos2+lithium3) unstable; urgency=low
+
+  * vyos-pppoe-server: update dh_gencontrol with new development build flag
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Thu, 25 Jun 2015 23:10:16 +0100
+ 
 vyos-pppoe-server (0.1.10+vyos2+lithium2) unstable; urgency=low
 
   * Force release
