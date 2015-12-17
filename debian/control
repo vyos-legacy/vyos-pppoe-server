@@ -13,6 +13,6 @@ Depends: perl,
  vyatta-bash | bash (>= 3.1),
  ppp,
  pppoe,
- libradiusclient-ng2
+ libfreeradius-client2
 Description: PPPoE server configuration/operational commands
  VyOS configuration/operational templates and scripts for PPPoE server
