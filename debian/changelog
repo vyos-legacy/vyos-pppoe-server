@@ -1,5 +1,12 @@
 vyos-pppoe-server (0.1.10+vyos2+current1) unstable; urgency=medium
 
+  [ Christian Poessinger ]
+  * Fix radiusclient folder after migration to libfreeradius-client2
+
+ -- Christian Poessinger <christian@poessinger.com>  Fri, 01 Dec 2017 18:00:00 +0100
+
+vyos-pppoe-server (0.1.10+vyos2+current1) unstable; urgency=medium
+
   [ Thomas Jepp ]
   * Fix build depends.
   * Change the runtime dependency from libradiusclient-ng2 to libfreeradius-client2.

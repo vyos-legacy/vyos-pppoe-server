@@ -12,8 +12,8 @@ for init in pppoe-server; do
 done
 
 for cfg in /etc/ppp/secrets/chap-pppoe-server \
-           /etc/radiusclient-ng/radiusclient-pppoe.conf \
-           /etc/radiusclient-ng/servers-pppoe \
+           /etc/radiusclient/radiusclient-pppoe.conf \
+           /etc/radiusclient/servers-pppoe \
            /etc/ppp/pppoe-server-options; do
   mkdir -p ${cfg%/*}
   touch $cfg
