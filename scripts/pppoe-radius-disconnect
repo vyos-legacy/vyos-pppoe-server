@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 # GET RADIUS INFORMATION
-open(RADFILE, '/etc/radiusclient-ng/servers-pppoe')
+open(RADFILE, '/etc/radiusclient/servers-pppoe')
   or die "$0: Cannot open PPPoE Radius Server Config: $!\n";
 my @radius;
 
@@ -22,7 +22,7 @@ my $radIP  = $radius[0];
 my $secret = $radius[1];
 my $port = $ARGV[0];
 
-my $d = new Net::Radius::Dictionary "/etc/radiusclient-ng/dictionary";
+my $d = new Net::Radius::Dictionary "/etc/radiusclient/dictionary";
 
 # flush after every write
 $| = 1;

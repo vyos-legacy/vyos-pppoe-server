@@ -7,8 +7,8 @@ use Vyatta::PPPoEServerConfig;
 my $PPPOE_INIT        = '/etc/init.d/pppoe-server';
 my $FILE_CHAP_SECRETS = '/etc/ppp/secrets/chap-pppoe-server';
 my $FILE_PPPOE_OPTS   = '/etc/ppp/pppoe-server-options';
-my $FILE_RADIUS_CONF  = '/etc/radiusclient-ng/radiusclient-pppoe.conf';
-my $FILE_RADIUS_KEYS  = '/etc/radiusclient-ng/servers-pppoe';
+my $FILE_RADIUS_CONF  = '/etc/radiusclient/radiusclient-pppoe.conf';
+my $FILE_RADIUS_KEYS  = '/etc/radiusclient/servers-pppoe';
 
 my $config = new Vyatta::PPPoEServerConfig;
 my $oconfig = new Vyatta::PPPoEServerConfig;

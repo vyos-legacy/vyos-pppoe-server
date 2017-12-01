@@ -238,7 +238,7 @@ sub get_ppp_opts {
     if ($self->{_auth_mode} eq 'radius') {
         $rstr  = "plugin radius.so\n";
         $rstr .= "radius-config-file ";
-        $rstr .= " /etc/radiusclient-ng/radiusclient-pppoe.conf\n";
+        $rstr .= " /etc/radiusclient/radiusclient-pppoe.conf\n";
         if (defined($self->{_radius_interim})) {
             $rstr .= "default-interim $self->{_radius_interim}\n";
         }
@@ -303,13 +303,13 @@ sub get_radius_conf {
     $str .= "login_tries     4\n";
     $str .= "login_timeout   60\n";
     $str .= "nologin /etc/nologin\n";
-    $str .= "issue   /etc/radiusclient-ng/issue\n";
+    $str .= "issue   /etc/radiusclient/issue\n";
     $str .= ${authstr} . ${acctstr};
-    $str .= "servers         /etc/radiusclient-ng/servers-pppoe\n";
-    $str .= "dictionary      /etc/radiusclient-ng/dictionary-ravpn\n";
+    $str .= "servers         /etc/radiusclient/servers-pppoe\n";
+    $str .= "dictionary      /etc/radiusclient/dictionary-ravpn\n";
     $str .= "login_radius    /usr/sbin/login.radius\n";
     $str .= "seqfile         /var/run/radius.seq\n";
-    $str .= "mapfile         /etc/radiusclient-ng/port-id-map-ravpn\n";
+    $str .= "mapfile         /etc/radiusclient/port-id-map-ravpn\n";
     $str .= "default_realm\n";
     $str .= "radius_timeout  10\n";
     $str .= "radius_retries  3\n";
